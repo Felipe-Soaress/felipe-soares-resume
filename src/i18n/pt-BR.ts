@@ -85,7 +85,6 @@ export const ptBR: TranslationDictionary = {
     highlight: (commits, repos) => `${commits} commits em ${repos} repositórios na Fortis Games`,
     expandAll: 'Expandir todos',
     collapseAll: 'Recolher todos',
-    remote: 'Remoto',
     keyTechnologies: 'Principais tecnologias',
     roles: {
       'fortis-se2': {

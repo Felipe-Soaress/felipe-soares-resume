@@ -14,19 +14,21 @@
         var root = document.documentElement;
         root.dataset.theme = theme;
         root.style.colorScheme = theme;
+        var locale = null;
         try {
-          var locale = localStorage.getItem('felipe-resume-locale');
-          if (locale !== 'pt-BR' && locale !== 'en-US') {
-            var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
-            locale = 'en-US';
-            for (var i = 0; i < langs.length; i++) {
-              var tag = String(langs[i] || '').toLowerCase();
-              if (tag.indexOf('pt') === 0) { locale = 'pt-BR'; break; }
-              if (tag.indexOf('en') === 0) { locale = 'en-US'; break; }
-            }
-          }
-          root.lang = locale;
+          var savedLocale = localStorage.getItem('felipe-resume-locale');
+          if (savedLocale === 'pt-BR' || savedLocale === 'en-US') locale = savedLocale;
         } catch (e) {}
+        if (!locale) {
+          var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+          locale = 'en-US';
+          for (var i = 0; i < langs.length; i++) {
+            var tag = String(langs[i] || '').toLowerCase();
+            if (tag.indexOf('pt') === 0) { locale = 'pt-BR'; break; }
+            if (tag.indexOf('en') === 0) { locale = 'en-US'; break; }
+          }
+        }
+        root.lang = locale;
       })();
     </script>
     <title>Felipe Soares · Senior Frontend Engineer</title>

@@ -50,6 +50,7 @@ describe('Experience & Skills sections', () => {
     expect(coreTab).toHaveAttribute('aria-selected', 'true');
     const panel = screen.getByRole('tabpanel');
     expect(panel.querySelectorAll('li')).toHaveLength(8);
+    expect(panel.querySelector('ul')?.className).toContain('sm:grid-cols-3 xl:grid-cols-4');
 
     coreTab.focus();
     await user.keyboard('{ArrowRight}');

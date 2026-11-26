@@ -102,7 +102,7 @@ export function Skills() {
             <ul
               className={`grid gap-3 ${
                 activeCategory.id === 'core'
-                  ? 'grid-cols-2 sm:grid-cols-4'
+                  ? 'grid-cols-2 sm:grid-cols-3 xl:grid-cols-4'
                   : 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'
               }`}
             >

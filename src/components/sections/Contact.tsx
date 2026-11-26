@@ -101,6 +101,7 @@ export function Contact() {
               </a>
 
               <div
+                role="group"
                 aria-label={t.contact.socialLabel}
                 className="flex items-center gap-3 text-fg-secondary"
               >

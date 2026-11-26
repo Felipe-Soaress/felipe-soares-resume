@@ -70,7 +70,6 @@ export interface TranslationDictionary {
     highlight: (commits: string, repos: string) => string;
     expandAll: string;
     collapseAll: string;
-    remote: string;
     keyTechnologies: string;
     roles: Record<ExperienceId, RoleCopy>;
     education: {

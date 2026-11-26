@@ -84,7 +84,6 @@ export const enUS: TranslationDictionary = {
     highlight: (commits, repos) => `${commits} commits across ${repos} repositories at Fortis Games`,
     expandAll: 'Expand all',
     collapseAll: 'Collapse all',
-    remote: 'Remote',
     keyTechnologies: 'Key technologies',
     roles: {
       'fortis-se2': {

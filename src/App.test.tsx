@@ -17,6 +17,7 @@ describe('App integration & WCAG accessibility', () => {
     expect(screen.getByRole('main')).toHaveAttribute('id', 'main-content');
     expect(screen.getByRole('contentinfo')).toBeInTheDocument();
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+    expect(screen.getByRole('group', { name: /find me online/i })).toBeInTheDocument();
     expect(document.body.textContent).not.toContain('99650-1981');
 
     // Verify heading levels never skip (e.g. h2 -> h4)

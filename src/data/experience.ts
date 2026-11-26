@@ -6,7 +6,6 @@ export interface ExperienceItem {
   /** ISO year-month, e.g. '2024-06'. */
   startDate: string;
   endDate: string;
-  remote: boolean;
   previewTags: readonly string[];
   technologies: readonly string[];
 }
@@ -18,7 +17,6 @@ export const EXPERIENCE_ITEMS: readonly ExperienceItem[] = [
     company: 'Fortis Games',
     startDate: '2024-06',
     endDate: '2026-11',
-    remote: true,
     previewTags: ['React', 'TypeScript', 'Sanity CMS', 'Microfrontends'],
     technologies: [
       'React',
@@ -42,7 +40,6 @@ export const EXPERIENCE_ITEMS: readonly ExperienceItem[] = [
     company: 'Fortis Games',
     startDate: '2022-03',
     endDate: '2024-06',
-    remote: true,
     previewTags: ['React', 'Remix', 'Nx', 'single-spa'],
     technologies: [
       'React',
@@ -64,7 +61,6 @@ export const EXPERIENCE_ITEMS: readonly ExperienceItem[] = [
     company: 'Oktagon Games',
     startDate: '2019-08',
     endDate: '2022-03',
-    remote: false,
     previewTags: ['React', 'Angular', 'Microfrontends', 'WebSockets'],
     technologies: ['Angular', 'React', 'JavaScript', 'Python', 'Context API', 'Redux', 'Microfrontends', 'WebSockets'],
   },
@@ -73,7 +69,6 @@ export const EXPERIENCE_ITEMS: readonly ExperienceItem[] = [
     company: 'Yankton Technologies',
     startDate: '2018-05',
     endDate: '2019-08',
-    remote: false,
     previewTags: ['React', 'Node.js', 'React Native', 'TypeScript'],
     technologies: ['React', 'Node.js', 'Angular', 'React Native', 'C#', 'MongoDB', 'SQL', 'TypeScript', 'Express'],
   },
