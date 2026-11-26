@@ -204,6 +204,39 @@
     background: var(--border-accent);
   }
 
+  /* Reserves the widest localized label width so header nav/CTA items never shift on locale change. */
+  .stable-label {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .stable-label::after {
+    content: attr(data-sizer);
+    content: attr(data-sizer) / '';
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+    user-select: none;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .stable-pill-sizer {
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+    user-select: none;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .stable-pill-sizer::after {
+    content: attr(data-sizer);
+    content: attr(data-sizer) / '';
+  }
+
   .sr-only-focusable:not(:focus):not(:focus-within) {
     position: absolute;
     width: 1px;
