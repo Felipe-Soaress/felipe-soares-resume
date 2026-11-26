@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en-US" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Apply the saved theme before first paint to avoid a flash of the wrong theme (dark is the default).
+      (function () {
+        var theme = 'dark';
+        try {
+          var saved = localStorage.getItem('felipe-resume-theme');
+          if (saved === 'light' || saved === 'dark') theme = saved;
+        } catch (e) {}
+        var root = document.documentElement;
+        root.dataset.theme = theme;
+        root.style.colorScheme = theme;
+        try {
+          var locale = localStorage.getItem('felipe-resume-locale');
+          if (locale !== 'pt-BR' && locale !== 'en-US') {
+            var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+            locale = 'en-US';
+            for (var i = 0; i < langs.length; i++) {
+              var tag = String(langs[i] || '').toLowerCase();
+              if (tag.indexOf('pt') === 0) { locale = 'pt-BR'; break; }
+              if (tag.indexOf('en') === 0) { locale = 'en-US'; break; }
+            }
+          }
+          root.lang = locale;
+        } catch (e) {}
+      })();
+    </script>
+    <title>Felipe Soares · Senior Frontend Engineer</title>
+    <meta
+      name="description"
+      content="Felipe Soares — Senior Frontend Engineer with 8+ years building fast, scalable and accessible web applications with React, TypeScript, microfrontends and design systems."
+    />
+    <meta name="author" content="Felipe Soares da Silva" />
+    <meta name="theme-color" content="#060913" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="canonical" href="%SITE_URL%" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Felipe Soares" />
+    <meta property="og:title" content="Felipe Soares · Senior Frontend Engineer" />
+    <meta
+      property="og:description"
+      content="8+ years building fast, scalable and accessible web applications with React, TypeScript, microfrontends and design systems."
+    />
+    <meta property="og:url" content="%SITE_URL%" />
+    <meta property="og:image" content="%OG_IMAGE_URL%" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Felipe Soares — Senior Frontend Engineer" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Felipe Soares · Senior Frontend Engineer" />
+    <meta
+      name="twitter:description"
+      content="8+ years building fast, scalable and accessible web applications with React and TypeScript."
+    />
+    <meta name="twitter:image" content="%OG_IMAGE_URL%" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Felipe Soares da Silva",
+        "alternateName": "Felipe Soares",
+        "jobTitle": "Senior Frontend Engineer",
+        "url": "%SITE_URL%",
+        "image": "%OG_IMAGE_URL%",
+        "email": "mailto:felipe.2013@alunos.utfpr.edu.br",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Londrina",
+          "addressRegion": "PR",
+          "addressCountry": "BR"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Universidade Tecnológica Federal do Paraná (UTFPR)"
+        },
+        "knowsAbout": ["React", "TypeScript", "Remix", "Microfrontends", "Design Systems", "Sanity CMS", "Accessibility", "Web Performance"],
+        "sameAs": ["https://www.linkedin.com/in/felipe-soares-dev/", "https://github.com/Felipe-Soaress"]
+      }
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <p style="padding: 1rem; font-family: system-ui, sans-serif">
+        This site needs JavaScript to render. You can still reach Felipe Soares at
+        <a href="mailto:felipe.2013@alunos.utfpr.edu.br">felipe.2013@alunos.utfpr.edu.br</a> or on
+        <a href="https://www.linkedin.com/in/felipe-soares-dev/">LinkedIn</a>.
+      </p>
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

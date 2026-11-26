@@ -1,0 +1,242 @@
+@import 'tailwindcss';
+
+/* Theme switching is driven by [data-theme] on <html>, set before first paint in index.html. */
+@custom-variant light (&:where([data-theme='light'], [data-theme='light'] *));
+
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg-base: #060913;
+  --bg-elevated: #0d1220;
+  --bg-elevated-hover: #141c30;
+  --bg-subtle: #0a0f1c;
+  --bg-header: rgba(6, 9, 19, 0.72);
+  --border-subtle: rgba(148, 163, 184, 0.14);
+  --border-strong: rgba(148, 163, 184, 0.26);
+  --border-accent: rgba(99, 102, 241, 0.4);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #7e8fa6;
+  --accent-cyan: #38bdf8;
+  --accent-indigo: #6366f1;
+  --accent-violet: #8b5cf6;
+  --accent-text: #8ab4ff;
+  --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #6366f1 52%, #8b5cf6 100%);
+  --accent-gradient-strong: linear-gradient(135deg, #0ea5e9 0%, #4f46e5 55%, #7c3aed 100%);
+  --status-dot: #22c55e;
+  --glow-indigo: rgba(79, 70, 229, 0.35);
+  --glow-cyan: rgba(56, 189, 248, 0.18);
+  --ribbon-a: rgba(56, 189, 248, 0.55);
+  --ribbon-b: rgba(99, 102, 241, 0.55);
+  --ribbon-c: rgba(139, 92, 246, 0.6);
+  --ribbon-fill: rgba(30, 41, 99, 0.35);
+  --card-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 20px 40px -24px rgba(0, 0, 0, 0.7);
+  --focus-ring: #8ab4ff;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+  --bg-base: #f8fafc;
+  --bg-elevated: #ffffff;
+  --bg-elevated-hover: #f1f5f9;
+  --bg-subtle: #eef2f7;
+  --bg-header: rgba(248, 250, 252, 0.8);
+  --border-subtle: rgba(15, 23, 42, 0.1);
+  --border-strong: rgba(15, 23, 42, 0.18);
+  --border-accent: rgba(79, 70, 229, 0.3);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #526277;
+  --accent-cyan: #0369a1;
+  --accent-indigo: #4f46e5;
+  --accent-violet: #7c3aed;
+  --accent-text: #4338ca;
+  --accent-gradient: linear-gradient(135deg, #0284c7 0%, #4f46e5 52%, #7c3aed 100%);
+  --accent-gradient-strong: linear-gradient(135deg, #0369a1 0%, #4338ca 55%, #6d28d9 100%);
+  --status-dot: #16a34a;
+  --glow-indigo: rgba(99, 102, 241, 0.16);
+  --glow-cyan: rgba(14, 165, 233, 0.12);
+  --ribbon-a: rgba(2, 132, 199, 0.35);
+  --ribbon-b: rgba(79, 70, 229, 0.35);
+  --ribbon-c: rgba(124, 58, 237, 0.4);
+  --ribbon-fill: rgba(199, 210, 254, 0.35);
+  --card-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 18px 36px -24px rgba(15, 23, 42, 0.22);
+  --focus-ring: #4338ca;
+}
+
+@theme inline {
+  --font-display: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-base: var(--bg-base);
+  --color-elevated: var(--bg-elevated);
+  --color-elevated-hover: var(--bg-elevated-hover);
+  --color-subtle: var(--bg-subtle);
+  --color-line: var(--border-subtle);
+  --color-line-strong: var(--border-strong);
+  --color-line-accent: var(--border-accent);
+  --color-fg: var(--text-primary);
+  --color-fg-secondary: var(--text-secondary);
+  --color-fg-muted: var(--text-muted);
+  --color-cyan: var(--accent-cyan);
+  --color-indigo: var(--accent-indigo);
+  --color-violet: var(--accent-violet);
+  --color-accent: var(--accent-text);
+  --color-status: var(--status-dot);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--bg-base);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--text-primary);
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: rgba(99, 102, 241, 0.35);
+    color: var(--text-primary);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  #main-content:focus {
+    outline: none;
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-page {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .text-gradient {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* Keeps descenders (g, j) from being clipped by background-clip. */
+    padding-bottom: 0.08em;
+  }
+
+  .bg-accent-gradient {
+    background-image: var(--accent-gradient-strong);
+  }
+
+  .surface-card {
+    background-color: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--card-shadow);
+  }
+
+  .gradient-border {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--ribbon-a), transparent 40%, transparent 60%, var(--ribbon-c));
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .eyebrow-rule {
+    display: inline-block;
+    width: 3rem;
+    height: 1px;
+    background: var(--border-accent);
+  }
+
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  header[role='banner'],
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #111;
+  }
+}
