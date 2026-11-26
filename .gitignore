@@ -1,0 +1,8 @@
+node_modules
+dist
+.vite
+coverage
+.superpowers
+*.log
+*.tsbuildinfo
+.DS_Store
