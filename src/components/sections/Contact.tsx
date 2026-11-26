@@ -34,13 +34,12 @@ export function Contact() {
       }
       await navigator.clipboard.writeText(PROFILE.email);
       setCopyStatus('copied');
+      timerRef.current = window.setTimeout(() => {
+        setCopyStatus('idle');
+      }, 4000);
     } catch {
       setCopyStatus('failed');
     }
-
-    timerRef.current = window.setTimeout(() => {
-      setCopyStatus('idle');
-    }, 4000);
   };
 
   const liveMessage =
@@ -141,7 +140,7 @@ export function Contact() {
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-elevated text-fg-secondary transition-colors hover:border-line-accent hover:bg-elevated-hover hover:text-fg"
                 >
                   {copyStatus === 'copied' ? (
-                    <Check aria-hidden="true" className="h-4 w-4 text-status" />
+                    <Check aria-hidden="true" className="h-4 w-4 text-status-text" />
                   ) : (
                     <Copy aria-hidden="true" className="h-4 w-4" />
                   )}
@@ -152,11 +151,7 @@ export function Contact() {
                 role="status"
                 aria-live="polite"
                 className={`min-h-[1.25rem] text-xs font-medium ${
-                  copyStatus === 'copied'
-                    ? 'text-status'
-                    : copyStatus === 'failed'
-                      ? 'text-fg-secondary'
-                      : 'sr-only'
+                  copyStatus === 'copied' ? 'text-status-text' : 'text-fg-secondary'
                 }`}
               >
                 {liveMessage}

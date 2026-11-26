@@ -22,8 +22,9 @@
   --accent-violet: #8b5cf6;
   --accent-text: #8ab4ff;
   --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #6366f1 52%, #8b5cf6 100%);
-  --accent-gradient-strong: linear-gradient(135deg, #0ea5e9 0%, #4f46e5 55%, #7c3aed 100%);
+  --accent-gradient-strong: linear-gradient(135deg, #0369a1 0%, #4f46e5 55%, #7c3aed 100%);
   --status-dot: #22c55e;
+  --status-text: #4ade80;
   --glow-indigo: rgba(79, 70, 229, 0.35);
   --glow-cyan: rgba(56, 189, 248, 0.18);
   --ribbon-a: rgba(56, 189, 248, 0.55);
@@ -54,6 +55,7 @@
   --accent-gradient: linear-gradient(135deg, #0284c7 0%, #4f46e5 52%, #7c3aed 100%);
   --accent-gradient-strong: linear-gradient(135deg, #0369a1 0%, #4338ca 55%, #6d28d9 100%);
   --status-dot: #16a34a;
+  --status-text: #15803d;
   --glow-indigo: rgba(99, 102, 241, 0.16);
   --glow-cyan: rgba(14, 165, 233, 0.12);
   --ribbon-a: rgba(2, 132, 199, 0.35);
@@ -83,6 +85,7 @@
   --color-violet: var(--accent-violet);
   --color-accent: var(--accent-text);
   --color-status: var(--status-dot);
+  --color-status-text: var(--status-text);
 }
 
 @layer base {
@@ -230,13 +233,25 @@
 }
 
 @media print {
+  :root,
+  [data-theme='dark'] {
+    color-scheme: light;
+    --bg-base: #ffffff;
+    --bg-elevated: #ffffff;
+    --bg-subtle: #f1f5f9;
+    --border-subtle: rgba(15, 23, 42, 0.16);
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #475569;
+  }
+
   header[role='banner'],
   .no-print {
     display: none !important;
   }
 
   body {
-    background: #fff;
-    color: #111;
+    background: #ffffff;
+    color: #0f172a;
   }
 }

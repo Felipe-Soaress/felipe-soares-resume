@@ -43,8 +43,12 @@ describe('App integration & WCAG accessibility', () => {
     expect(screen.getByRole('status')).toHaveTextContent(/copied/i);
 
     writeText.mockRejectedValueOnce(new Error('Clipboard unavailable'));
+    const timeoutSpy = vi.spyOn(window, 'setTimeout');
     await user.click(copyBtn);
     expect(screen.getByRole('status')).toHaveTextContent(/felipe\.2013@alunos\.utfpr\.edu\.br/i);
+    // Clipboard failure fallback should stay visible (no 4000ms auto-clear timer)
+    expect(timeoutSpy).not.toHaveBeenCalledWith(expect.any(Function), 4000);
+    timeoutSpy.mockRestore();
   });
 
   it.each([
