@@ -38,7 +38,6 @@ export interface TranslationDictionary {
     experience: string;
     skills: string;
     contact: string;
-    letsTalk: string;
     resume: string;
   };
   hero: {

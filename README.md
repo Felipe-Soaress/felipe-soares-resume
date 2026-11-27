@@ -8,7 +8,7 @@ Bilingual (`pt-BR` / `en-US`), dark-default/light-toggleable, WCAG 2.1 AA-access
 - **Automatic browser language detection** (`pt*` → `pt-BR`, fallback → `en-US`) with an always-visible `PT | EN` header switcher and dynamic `<html lang>` / `<title>` / meta description sync.
 - **Resume PDF download** directly from the top header (and mobile menu).
 - **Accessible by design**: skip-to-content link, semantic HTML5 landmarks, single `<h1>`, keyboard-navigable WAI-ARIA tabs for Skills (`ArrowLeft`/`ArrowRight`/`Home`/`End`), disclosure accordions for Experience, focus-restoring mobile drawer (`Escape` closes), `prefers-reduced-motion` support, and automated `axe-core` WCAG tests across all 4 theme × locale combinations.
-- **Zero-config GitHub Pages deploy**: `.github/workflows/deploy.yml` uses `actions/configure-pages@v5` to derive the correct base path and canonical origin automatically for user sites (`<owner>.github.io`), project sites (`<owner>.github.io/<repo>/`), and custom domains (`CNAME`).
+- **Zero-config GitHub Pages deploy**: `.github/workflows/deploy.yml` uses `actions/configure-pages@v6` to derive the correct base path and canonical origin automatically for user sites (`<owner>.github.io`), project sites (`<owner>.github.io/<repo>/`), and custom domains (`CNAME`).
 
 ## Local Development
 

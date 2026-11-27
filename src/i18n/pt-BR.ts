@@ -26,7 +26,6 @@ export const ptBR: TranslationDictionary = {
     experience: 'Experiência',
     skills: 'Habilidades',
     contact: 'Contato',
-    letsTalk: 'Vamos conversar',
     resume: 'Currículo (EN)',
   },
   hero: {
@@ -172,10 +171,10 @@ export const ptBR: TranslationDictionary = {
     },
   },
   contact: {
-    eyebrow: 'Vamos conversar',
-    title: 'Tem um projeto em mente?',
+    eyebrow: 'Contato',
+    title: 'Aberto a novas oportunidades',
     description:
-      'Estou sempre aberto a novas oportunidades, colaborações técnicas ou a uma boa conversa sobre tecnologia e games.',
+      'Disponível para posições como Engenheiro Frontend Sênior, colaborações técnicas ou uma boa conversa sobre tecnologia e games.',
     cta: 'Entrar em contato',
     copyEmail: 'Copiar endereço de e-mail',
     copied: 'Endereço de e-mail copiado.',

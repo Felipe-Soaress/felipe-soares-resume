@@ -70,20 +70,17 @@ describe('Header & SkipLink', () => {
       'Habilidades',
       'Contact',
       'Currículo (EN)',
-      'Vamos conversar',
     ]);
 
     // Visible textContent must contain only the active locale label (no duplicate sizer text in DOM)
     expect(screen.getByRole('link', { name: 'Skills' }).textContent).toBe('Skills');
     expect(screen.getByRole('link', { name: /resume.*pdf/i }).textContent).toBe('Resume');
-    expect(screen.getByRole('link', { name: "Let's talk" }).textContent).toBe("Let's talk");
 
     await user.click(screen.getByRole('button', { name: /pt.*português/i }));
 
     expect(getSizers()).toEqual(enSizers);
     expect(screen.getByRole('link', { name: 'Habilidades' }).textContent).toBe('Habilidades');
     expect(screen.getByRole('link', { name: /currículo \(en\)/i }).textContent).toBe('Currículo (EN)');
-    expect(screen.getByRole('link', { name: 'Vamos conversar' }).textContent).toBe('Vamos conversar');
   });
 
   it('mounts mobile menu outside <header>, locks scroll, closes on Escape restoring focus, and does not steal focus on nav click', async () => {

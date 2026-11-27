@@ -1,5 +1,5 @@
 import { useEffect, useRef, type RefObject } from 'react';
-import { ArrowRight, Download } from 'lucide-react';
+import { Download } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { PROFILE } from '../../data/profile';
 import { resolveAssetUrl } from '../../utils/assets';
@@ -93,9 +93,9 @@ export function MobileMenu({ isOpen, onClose, triggerRef, navItems }: MobileMenu
             download={resume.downloadName}
             aria-label={t.a11y.resumeDownload}
             onClick={closeWithoutFocusRestore}
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-line-accent bg-subtle px-4 py-2.5 text-sm font-medium text-fg transition-colors hover:bg-elevated-hover"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-accent-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-opacity hover:opacity-95"
           >
-            <Download aria-hidden="true" className="h-4 w-4 text-cyan" />
+            <Download aria-hidden="true" className="h-4 w-4" />
             <span>{t.nav.resume}</span>
           </a>
 
@@ -112,15 +112,6 @@ export function MobileMenu({ isOpen, onClose, triggerRef, navItems }: MobileMenu
               </li>
             ))}
           </ul>
-
-          <a
-            href="#contact"
-            onClick={closeWithoutFocusRestore}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-accent-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-opacity hover:opacity-95"
-          >
-            <span>{t.nav.letsTalk}</span>
-            <ArrowRight aria-hidden="true" className="h-4 w-4" />
-          </a>
         </div>
       </nav>
     </div>
