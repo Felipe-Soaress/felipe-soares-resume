@@ -13,11 +13,11 @@ describe('App integration & WCAG accessibility', () => {
 
   it('renders complete landmark structure with a single h1, unbroken heading hierarchy, and omits phone number', () => {
     render(<App />);
-    expect(screen.getByRole('banner')).toBeInTheDocument();
+    expect(screen.getByRole('banner')).not.toHaveAttribute('role');
     expect(screen.getByRole('main')).toHaveAttribute('id', 'main-content');
-    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
+    expect(screen.getByRole('contentinfo')).not.toHaveAttribute('role');
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
-    expect(screen.getByRole('group', { name: /find me online/i })).toBeInTheDocument();
+    expect(screen.getByRole('list', { name: /find me online/i })).toBeInTheDocument();
     expect(document.body.textContent).not.toContain('99650-1981');
 
     // Verify heading levels never skip (e.g. h2 -> h4)

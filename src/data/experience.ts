@@ -75,7 +75,6 @@ export const EXPERIENCE_ITEMS: readonly ExperienceItem[] = [
 ];
 
 export const EDUCATION = {
-  id: 'utfpr',
   startYear: 2017,
   endYear: 2019,
 } as const;

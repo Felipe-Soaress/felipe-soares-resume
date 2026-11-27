@@ -113,7 +113,8 @@
   h1,
   h2,
   h3,
-  h4 {
+  h4,
+  h5 {
     font-family: var(--font-display);
     color: var(--text-primary);
     letter-spacing: -0.025em;
@@ -278,7 +279,7 @@
     --text-muted: #475569;
   }
 
-  header[role='banner'],
+  header,
   .no-print {
     display: none !important;
   }

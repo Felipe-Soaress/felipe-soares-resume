@@ -1,8 +1,12 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Check, Copy, Mail } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { PROFILE } from '../../data/profile';
+import { cn } from '../../utils/cn';
 import { GitHubIcon, LinkedInIcon } from '../icons/SocialIcons';
+import { ContactBackdrop } from '../illustrations/ContactBackdrop';
+import { ExternalLink } from '../ui/ExternalLink';
+import { IconButton, iconActionClassName } from '../ui/IconAction';
 import { SectionHeading } from '../ui/SectionHeading';
 
 type CopyStatus = 'idle' | 'copied' | 'failed';
@@ -11,9 +15,6 @@ export function Contact() {
   const { t } = useLanguage();
   const [copyStatus, setCopyStatus] = useState<CopyStatus>('idle');
   const timerRef = useRef<number | null>(null);
-  const uid = useId();
-  const arcGrad = `${uid}-arc`;
-  const glowGrad = `${uid}-glow`;
 
   useEffect(() => {
     return () => {
@@ -53,34 +54,7 @@ export function Contact() {
     <section id="contact" aria-labelledby="contact-heading" className="py-16 sm:py-20">
       <div className="container-page">
         <div className="gradient-border surface-card relative overflow-hidden rounded-[20px] p-8 sm:p-10 lg:p-12">
-          {/* Decorative sweeping arc and ambient corner glow matching reference */}
-          <svg
-            viewBox="0 0 1120 300"
-            fill="none"
-            aria-hidden="true"
-            focusable="false"
-            className="pointer-events-none absolute inset-0 h-full w-full"
-            preserveAspectRatio="none"
-          >
-            <defs>
-              <radialGradient id={glowGrad} cx="88%" cy="22%" r="55%">
-                <stop offset="0%" stopColor="var(--glow-indigo)" />
-                <stop offset="60%" stopColor="var(--glow-cyan)" />
-                <stop offset="100%" stopColor="transparent" />
-              </radialGradient>
-              <linearGradient id={arcGrad} x1="600" y1="300" x2="1080" y2="0" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="var(--accent-cyan)" stopOpacity="0.6" />
-                <stop offset="55%" stopColor="var(--accent-indigo)" stopOpacity="0.55" />
-                <stop offset="100%" stopColor="var(--accent-violet)" stopOpacity="0.3" />
-              </linearGradient>
-            </defs>
-            <rect width="1120" height="300" fill={`url(#${glowGrad})`} />
-            <path
-              d="M640 310 C720 140 870 30 1130 -10"
-              stroke={`url(#${arcGrad})`}
-              strokeWidth="1.25"
-            />
-          </svg>
+          <ContactBackdrop />
 
           <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <SectionHeading
@@ -100,60 +74,62 @@ export function Contact() {
                 <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </a>
 
-              <div
-                role="group"
+              <ul
                 aria-label={t.contact.socialLabel}
                 className="flex items-center gap-3 text-fg-secondary"
               >
-                <a
-                  href={PROFILE.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${t.contact.linkedin} ${t.a11y.opensInNewTab}`}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-elevated text-fg-secondary transition-colors hover:border-line-accent hover:bg-elevated-hover hover:text-fg"
-                >
-                  <LinkedInIcon className="h-4 w-4" />
-                </a>
+                <li>
+                  <ExternalLink
+                    href={PROFILE.linkedin}
+                    ariaLabel={t.contact.linkedin}
+                    className={iconActionClassName('md')}
+                  >
+                    <LinkedInIcon className="h-4 w-4" />
+                  </ExternalLink>
+                </li>
 
-                <a
-                  href={PROFILE.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${t.contact.github} ${t.a11y.opensInNewTab}`}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-elevated text-fg-secondary transition-colors hover:border-line-accent hover:bg-elevated-hover hover:text-fg"
-                >
-                  <GitHubIcon className="h-4 w-4" />
-                </a>
+                <li>
+                  <ExternalLink
+                    href={PROFILE.github}
+                    ariaLabel={t.contact.github}
+                    className={iconActionClassName('md')}
+                  >
+                    <GitHubIcon className="h-4 w-4" />
+                  </ExternalLink>
+                </li>
 
-                <a
-                  href={`mailto:${PROFILE.email}`}
-                  aria-label={t.contact.email}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-elevated text-fg-secondary transition-colors hover:border-line-accent hover:bg-elevated-hover hover:text-fg"
-                >
-                  <Mail aria-hidden="true" className="h-4 w-4" />
-                </a>
+                <li>
+                  <a
+                    href={`mailto:${PROFILE.email}`}
+                    aria-label={t.contact.email}
+                    className={iconActionClassName('md')}
+                  >
+                    <Mail aria-hidden="true" className="h-4 w-4" />
+                  </a>
+                </li>
 
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  aria-label={t.contact.copyEmail}
-                  title={t.contact.copyEmail}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-elevated text-fg-secondary transition-colors hover:border-line-accent hover:bg-elevated-hover hover:text-fg"
-                >
-                  {copyStatus === 'copied' ? (
-                    <Check aria-hidden="true" className="h-4 w-4 text-status-text" />
-                  ) : (
-                    <Copy aria-hidden="true" className="h-4 w-4" />
-                  )}
-                </button>
-              </div>
+                <li>
+                  <IconButton
+                    size="md"
+                    onClick={handleCopyEmail}
+                    aria-label={t.contact.copyEmail}
+                    title={t.contact.copyEmail}
+                  >
+                    {copyStatus === 'copied' ? (
+                      <Check aria-hidden="true" className="h-4 w-4 text-status-text" />
+                    ) : (
+                      <Copy aria-hidden="true" className="h-4 w-4" />
+                    )}
+                  </IconButton>
+                </li>
+              </ul>
 
               <span
                 role="status"
-                aria-live="polite"
-                className={`min-h-[1.25rem] text-xs font-medium ${
-                  copyStatus === 'copied' ? 'text-status-text' : 'text-fg-secondary'
-                }`}
+                className={cn(
+                  'min-h-[1.25rem] text-xs font-medium',
+                  copyStatus === 'copied' ? 'text-status-text' : 'text-fg-secondary',
+                )}
               >
                 {liveMessage}
               </span>

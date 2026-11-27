@@ -1,8 +1,6 @@
 import { useEffect, useRef, type RefObject } from 'react';
-import { Download } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
-import { PROFILE } from '../../data/profile';
-import { resolveAssetUrl } from '../../utils/assets';
+import { ResumeDownloadLink } from './ResumeDownloadLink';
 
 export interface NavItem {
   href: string;
@@ -17,7 +15,7 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ isOpen, onClose, triggerRef, navItems }: MobileMenuProps) {
-  const { locale, t } = useLanguage();
+  const { t } = useLanguage();
   const firstLinkRef = useRef<HTMLAnchorElement | null>(null);
   const wasOpenRef = useRef(false);
   const skipFocusRestoreRef = useRef(false);
@@ -38,6 +36,12 @@ export function MobileMenu({ isOpen, onClose, triggerRef, navItems }: MobileMenu
     skipFocusRestoreRef.current = false;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+
+    // Make obscured page landmarks inert so keyboard focus and screen readers stay out of background content.
+    const backgroundLandmarks = Array.from(document.querySelectorAll<HTMLElement>('main, footer'));
+    const previousInert = backgroundLandmarks.map((el) => el.hasAttribute('inert'));
+    backgroundLandmarks.forEach((el) => el.setAttribute('inert', ''));
+
     firstLinkRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -60,6 +64,11 @@ export function MobileMenu({ isOpen, onClose, triggerRef, navItems }: MobileMenu
 
     return () => {
       document.body.style.overflow = previousOverflow;
+      backgroundLandmarks.forEach((el, index) => {
+        if (!previousInert[index]) {
+          el.removeAttribute('inert');
+        }
+      });
       document.removeEventListener('keydown', handleKeyDown);
       desktopMedia.removeEventListener?.('change', handleViewportChange);
     };
@@ -72,9 +81,6 @@ export function MobileMenu({ isOpen, onClose, triggerRef, navItems }: MobileMenu
     onClose();
   };
 
-  const resume = PROFILE.resumePdf[locale];
-  const resumeHref = resolveAssetUrl(resume.file);
-
   return (
     <div id="mobile-menu" className="lg:hidden">
       <div
@@ -84,20 +90,10 @@ export function MobileMenu({ isOpen, onClose, triggerRef, navItems }: MobileMenu
       />
       <nav
         aria-label={t.a11y.mobileNav}
-        className="fixed inset-x-0 top-16 z-40 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-line bg-elevated px-5 py-6 shadow-2xl"
+        className="fixed inset-x-0 top-16 z-40 max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-b border-line bg-elevated px-5 py-6 shadow-2xl"
       >
         <div className="mx-auto flex max-w-md flex-col gap-4">
-          <a
-            ref={firstLinkRef}
-            href={resumeHref}
-            download={resume.downloadName}
-            aria-label={t.a11y.resumeDownload}
-            onClick={closeWithoutFocusRestore}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-accent-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-opacity hover:opacity-95"
-          >
-            <Download aria-hidden="true" className="h-4 w-4" />
-            <span>{t.nav.resume}</span>
-          </a>
+          <ResumeDownloadLink ref={firstLinkRef} variant="mobile" onClick={closeWithoutFocusRestore} />
 
           <ul className="flex flex-col divide-y divide-line">
             {navItems.map((item) => (

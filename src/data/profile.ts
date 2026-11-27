@@ -5,8 +5,6 @@ export interface ResumePdf {
   file: string;
   /** Name suggested to the browser when downloading. */
   downloadName: string;
-  /** True when the file is the English CV served for another locale. */
-  isEnglishOnly?: boolean;
 }
 
 export const PROFILE = {
@@ -19,11 +17,10 @@ export const PROFILE = {
   commitsCount: 2500,
   reposCount: 30,
   /**
-   * To add a Portuguese CV later: drop the PDF in `public/` and point 'pt-BR' at it
-   * (and remove `isEnglishOnly`).
+   * To add a Portuguese CV later: drop the PDF in `public/` and point 'pt-BR' at it.
    */
   resumePdf: {
     'en-US': { file: 'felipe-soares-resume-en.pdf', downloadName: 'Felipe-Soares-Resume.pdf' },
-    'pt-BR': { file: 'felipe-soares-resume-en.pdf', downloadName: 'Felipe-Soares-Resume.pdf', isEnglishOnly: true },
+    'pt-BR': { file: 'felipe-soares-resume-en.pdf', downloadName: 'Felipe-Soares-Resume.pdf' },
   } satisfies Record<Locale, ResumePdf>,
 } as const;

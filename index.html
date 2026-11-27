@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <script>
       // Apply the saved theme before first paint to avoid a flash of the wrong theme (dark is the default).
       (function () {
@@ -20,10 +21,11 @@
           if (savedLocale === 'pt-BR' || savedLocale === 'en-US') locale = savedLocale;
         } catch (e) {}
         if (!locale) {
-          var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+          var langs = Array.prototype.slice.call(navigator.languages || []);
+          if (navigator.language) langs.push(navigator.language);
           locale = 'en-US';
           for (var i = 0; i < langs.length; i++) {
-            var tag = String(langs[i] || '').toLowerCase();
+            var tag = String(langs[i] || '').trim().toLowerCase();
             if (tag.indexOf('pt') === 0) { locale = 'pt-BR'; break; }
             if (tag.indexOf('en') === 0) { locale = 'en-US'; break; }
           }

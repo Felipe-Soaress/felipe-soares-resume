@@ -1,16 +1,18 @@
 import { useCallback, useRef, useState } from 'react';
-import { Download, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { PROFILE } from '../../data/profile';
 import { DICTIONARIES } from '../../i18n';
 import { LOCALES, type TranslationDictionary } from '../../i18n/types';
-import { resolveAssetUrl } from '../../utils/assets';
 import { BrandLogo } from '../icons/BrandLogo';
+import { IconButton } from '../ui/IconAction';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { MobileMenu, type NavItem } from './MobileMenu';
+import { ResumeDownloadLink } from './ResumeDownloadLink';
 import { ThemeToggle } from './ThemeToggle';
 
 type NavKey = keyof TranslationDictionary['nav'];
+type SectionNavKey = Exclude<NavKey, 'resume'>;
 
 function getLongestNavLabel(key: NavKey): string {
   return LOCALES.reduce((longest, loc) => {
@@ -28,30 +30,30 @@ const NAV_SIZERS: Record<NavKey, string> = {
   resume: getLongestNavLabel('resume'),
 };
 
+const NAV_CONFIG: readonly { key: SectionNavKey; href: string }[] = [
+  { key: 'about', href: '#about' },
+  { key: 'projects', href: '#projects' },
+  { key: 'experience', href: '#experience' },
+  { key: 'skills', href: '#skills' },
+  { key: 'contact', href: '#contact' },
+];
+
 export function Header() {
-  const { locale, t } = useLanguage();
+  const { t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
 
   const closeMenu = useCallback(() => setMobileOpen(false), []);
 
-  const navItems: readonly (NavItem & { sizer: string })[] = [
-    { href: '#about', label: t.nav.about, sizer: NAV_SIZERS.about },
-    { href: '#projects', label: t.nav.projects, sizer: NAV_SIZERS.projects },
-    { href: '#experience', label: t.nav.experience, sizer: NAV_SIZERS.experience },
-    { href: '#skills', label: t.nav.skills, sizer: NAV_SIZERS.skills },
-    { href: '#contact', label: t.nav.contact, sizer: NAV_SIZERS.contact },
-  ];
-
-  const resume = PROFILE.resumePdf[locale];
-  const resumeHref = resolveAssetUrl(resume.file);
+  const navItems: readonly (NavItem & { sizer: string })[] = NAV_CONFIG.map(({ key, href }) => ({
+    href,
+    label: t.nav[key],
+    sizer: NAV_SIZERS[key],
+  }));
 
   return (
     <>
-      <header
-        role="banner"
-        className="sticky top-0 z-40 border-b border-line bg-[var(--bg-header)] backdrop-blur-md"
-      >
+      <header className="sticky top-0 z-40 border-b border-line bg-[var(--bg-header)] backdrop-blur-md">
         <div className="container-page flex h-16 items-center justify-between gap-2 xl:gap-3">
           <a
             href="#top"
@@ -78,41 +80,23 @@ export function Header() {
           <div className="flex shrink-0 items-center gap-2 xl:gap-2.5">
             <LanguageSwitcher />
             <ThemeToggle />
+            <ResumeDownloadLink variant="header" sizer={NAV_SIZERS.resume} />
 
-            <a
-              href={resumeHref}
-              download={resume.downloadName}
-              aria-label={t.a11y.resumeDownload}
-              className="gradient-border hidden place-items-center rounded-full bg-elevated px-3.5 py-1.5 text-xs font-semibold text-fg transition-colors hover:bg-elevated-hover md:inline-grid xl:px-4"
-            >
-              <span className="col-start-1 row-start-1 inline-flex items-center gap-1.5 whitespace-nowrap">
-                <Download aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-cyan" />
-                <span>{t.nav.resume}</span>
-              </span>
-              <span
-                aria-hidden="true"
-                data-sizer={NAV_SIZERS.resume}
-                className="stable-pill-sizer col-start-1 row-start-1 inline-flex items-center gap-1.5"
-              >
-                <span className="h-3.5 w-3.5 shrink-0" />
-              </span>
-            </a>
-
-            <button
+            <IconButton
               ref={triggerRef}
-              type="button"
+              size="sm"
               onClick={() => setMobileOpen((open) => !open)}
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
               aria-label={mobileOpen ? t.a11y.closeMenu : t.a11y.openMenu}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line bg-elevated text-fg-secondary transition-colors hover:border-line-strong hover:text-fg lg:hidden"
+              className="hover:border-line-strong lg:hidden"
             >
               {mobileOpen ? (
                 <X aria-hidden="true" className="h-4 w-4" />
               ) : (
                 <Menu aria-hidden="true" className="h-4 w-4" />
               )}
-            </button>
+            </IconButton>
           </div>
         </div>
       </header>

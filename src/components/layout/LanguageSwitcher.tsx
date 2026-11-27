@@ -1,4 +1,5 @@
 import { useLanguage, type Locale } from '../../context/LanguageContext';
+import { cn } from '../../utils/cn';
 
 const OPTIONS: readonly { locale: Locale; shortLabel: string }[] = [
   { locale: 'pt-BR', shortLabel: 'PT' },
@@ -20,14 +21,14 @@ export function LanguageSwitcher() {
           <button
             key={option.locale}
             type="button"
+            lang={option.locale}
             onClick={() => setLocale(option.locale)}
             aria-pressed={active}
             aria-label={t.a11y.languageNames[option.locale]}
-            className={`rounded-full px-2.5 py-1 transition-colors ${
-              active
-                ? 'bg-accent-gradient text-white shadow-sm'
-                : 'text-fg-secondary hover:text-fg'
-            }`}
+            className={cn(
+              'rounded-full px-2.5 py-1 transition-colors',
+              active ? 'bg-accent-gradient text-white shadow-sm' : 'text-fg-secondary hover:text-fg',
+            )}
           >
             {option.shortLabel}
           </button>

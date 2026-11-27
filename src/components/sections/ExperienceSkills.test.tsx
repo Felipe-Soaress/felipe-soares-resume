@@ -20,6 +20,8 @@ describe('Experience & Skills sections', () => {
 
     const role1Btn = screen.getByRole('button', { name: /software engineer ii\b.*fortis games/i });
     const role2Btn = screen.getByRole('button', { name: /software engineer i\b.*fortis games/i });
+    expect(role1Btn.querySelector('div')).toBeNull();
+    expect(role2Btn.querySelector('div')).toBeNull();
     expect(role1Btn).toHaveAttribute('aria-expanded', 'true');
     expect(role2Btn).toHaveAttribute('aria-expanded', 'false');
     expect(screen.getByText(/2,500\+ commits/i)).toBeInTheDocument();
@@ -48,6 +50,12 @@ describe('Experience & Skills sections', () => {
 
     const coreTab = screen.getByRole('tab', { name: 'Core' });
     expect(coreTab).toHaveAttribute('aria-selected', 'true');
+    const allTabs = screen.getAllByRole('tab');
+    for (const tab of allTabs) {
+      const panelId = tab.getAttribute('aria-controls');
+      expect(panelId).toBeTruthy();
+      expect(document.getElementById(panelId!)).not.toBeNull();
+    }
     const panel = screen.getByRole('tabpanel');
     expect(panel.querySelectorAll('li')).toHaveLength(8);
     expect(panel.querySelector('ul')?.className).toContain('sm:grid-cols-3 xl:grid-cols-4');

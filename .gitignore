@@ -3,6 +3,9 @@ dist
 .vite
 coverage
 .superpowers
+.env
+.env.local
+.env.*.local
 *.log
 *.tsbuildinfo
 .DS_Store

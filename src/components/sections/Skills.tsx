@@ -6,6 +6,7 @@ import {
   skillName,
   type SkillCategoryId,
 } from '../../data/skills';
+import { cn } from '../../utils/cn';
 import { SkillIcon } from '../icons/SkillIcons';
 import { SectionHeading } from '../ui/SectionHeading';
 
@@ -79,11 +80,12 @@ export function Skills() {
                     tabIndex={isSelected ? 0 : -1}
                     onClick={() => setActiveId(category.id)}
                     onKeyDown={handleTabKeyDown(index)}
-                    className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors ${
+                    className={cn(
+                      'rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors',
                       isSelected
                         ? 'border-line-accent bg-accent-gradient text-white shadow-sm'
-                        : 'border-line bg-elevated text-fg-secondary hover:border-line-strong hover:bg-elevated-hover hover:text-fg'
-                    }`}
+                        : 'border-line bg-elevated text-fg-secondary hover:border-line-strong hover:bg-elevated-hover hover:text-fg',
+                    )}
                   >
                     {t.skills.categories[category.id]}
                   </button>
@@ -92,34 +94,42 @@ export function Skills() {
             </div>
           </div>
 
-          <div
-            id={`skills-panel-${activeCategory.id}`}
-            role="tabpanel"
-            aria-labelledby={`skills-tab-${activeCategory.id}`}
-            tabIndex={0}
-            className="lg:col-span-8"
-          >
-            <ul
-              className={`grid gap-3 ${
-                activeCategory.id === 'core'
-                  ? 'grid-cols-2 sm:grid-cols-3 xl:grid-cols-4'
-                  : 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'
-              }`}
-            >
-              {activeCategory.skills.map((skill) => {
-                const label = skillName(skill, locale);
-                return (
-                  <li
-                    key={label}
-                    className="surface-card flex items-center gap-3 rounded-xl px-4 py-3.5 transition-colors hover:border-line-accent"
-                  >
-                    <SkillIcon id={skill.icon} className="h-5 w-5 shrink-0" />
-                    <span className="text-sm font-medium text-fg">{label}</span>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+          {SKILL_CATEGORIES.map((category) => {
+            const isSelected = category.id === activeCategory.id;
+            return (
+              <div
+                key={category.id}
+                id={`skills-panel-${category.id}`}
+                role="tabpanel"
+                aria-labelledby={`skills-tab-${category.id}`}
+                hidden={!isSelected}
+                tabIndex={isSelected ? 0 : -1}
+                className="lg:col-span-8"
+              >
+                <ul
+                  className={cn(
+                    'grid gap-3',
+                    category.id === 'core'
+                      ? 'grid-cols-2 sm:grid-cols-3 xl:grid-cols-4'
+                      : 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3',
+                  )}
+                >
+                  {category.skills.map((skill) => {
+                    const label = skillName(skill, locale);
+                    return (
+                      <li
+                        key={label}
+                        className="surface-card flex items-center gap-3 rounded-xl px-4 py-3.5 transition-colors hover:border-line-accent"
+                      >
+                        <SkillIcon id={skill.icon} className="h-5 w-5 shrink-0" />
+                        <span className="text-sm font-medium text-fg">{label}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
         </div>
 
         <div className="mt-12 border-t border-line pt-8">

@@ -12,6 +12,8 @@ function renderHeader() {
       <LanguageProvider>
         <SkipLink />
         <Header />
+        <main id="main-content">Content</main>
+        <footer>Footer</footer>
       </LanguageProvider>
     </ThemeProvider>,
   );
@@ -34,7 +36,9 @@ describe('Header & SkipLink', () => {
     const ptBtn = screen.getByRole('button', { name: /pt.*português/i });
     const enBtn = screen.getByRole('button', { name: /en.*english/i });
     expect(ptBtn).toHaveAttribute('aria-pressed', 'false');
+    expect(ptBtn).toHaveAttribute('lang', 'pt-BR');
     expect(enBtn).toHaveAttribute('aria-pressed', 'true');
+    expect(enBtn).toHaveAttribute('lang', 'en-US');
 
     const downloadLink = screen.getByRole('link', { name: /resume.*pdf/i });
     expect(downloadLink).toHaveAttribute('download', 'Felipe-Soares-Resume.pdf');
@@ -99,10 +103,15 @@ describe('Header & SkipLink', () => {
     expect(header.contains(mobileMenu)).toBe(false);
     const mobileNav = screen.getByRole('navigation', { name: /mobile/i });
     expect(mobileNav.className).toContain('overflow-y-auto');
+    expect(mobileNav.className).toContain('overscroll-contain');
+    expect(document.querySelector('main')).toHaveAttribute('inert');
+    expect(document.querySelector('footer')).toHaveAttribute('inert');
 
     await user.keyboard('{Escape}');
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
     expect(document.body.style.overflow).toBe('');
+    expect(document.querySelector('main')).not.toHaveAttribute('inert');
+    expect(document.querySelector('footer')).not.toHaveAttribute('inert');
     expect(trigger).toHaveFocus();
 
     // Re-open and click an in-page nav link: menu closes without snapping focus back to trigger
