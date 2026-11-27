@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import { ArrowRight, Download, Menu, X } from 'lucide-react';
+import { Download, Menu, X } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { PROFILE } from '../../data/profile';
 import { DICTIONARIES } from '../../i18n';
@@ -26,7 +26,6 @@ const NAV_SIZERS: Record<NavKey, string> = {
   skills: getLongestNavLabel('skills'),
   contact: getLongestNavLabel('contact'),
   resume: getLongestNavLabel('resume'),
-  letsTalk: getLongestNavLabel('letsTalk'),
 };
 
 export function Header() {
@@ -84,7 +83,7 @@ export function Header() {
               href={resumeHref}
               download={resume.downloadName}
               aria-label={t.a11y.resumeDownload}
-              className="hidden place-items-center rounded-full border border-line bg-elevated px-3 py-1.5 text-xs font-semibold text-fg transition-colors hover:border-line-accent hover:bg-elevated-hover md:inline-grid xl:px-3.5"
+              className="gradient-border hidden place-items-center rounded-full bg-elevated px-3.5 py-1.5 text-xs font-semibold text-fg transition-colors hover:bg-elevated-hover md:inline-grid xl:px-4"
             >
               <span className="col-start-1 row-start-1 inline-flex items-center gap-1.5 whitespace-nowrap">
                 <Download aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-cyan" />
@@ -93,23 +92,6 @@ export function Header() {
               <span
                 aria-hidden="true"
                 data-sizer={NAV_SIZERS.resume}
-                className="stable-pill-sizer col-start-1 row-start-1 inline-flex items-center gap-1.5"
-              >
-                <span className="h-3.5 w-3.5 shrink-0" />
-              </span>
-            </a>
-
-            <a
-              href="#contact"
-              className="gradient-border hidden place-items-center rounded-full bg-elevated px-3.5 py-1.5 text-xs font-semibold text-fg transition-colors hover:bg-elevated-hover lg:inline-grid xl:px-4"
-            >
-              <span className="col-start-1 row-start-1 inline-flex items-center gap-1.5 whitespace-nowrap">
-                <span>{t.nav.letsTalk}</span>
-                <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-violet" />
-              </span>
-              <span
-                aria-hidden="true"
-                data-sizer={NAV_SIZERS.letsTalk}
                 className="stable-pill-sizer col-start-1 row-start-1 inline-flex items-center gap-1.5"
               >
                 <span className="h-3.5 w-3.5 shrink-0" />

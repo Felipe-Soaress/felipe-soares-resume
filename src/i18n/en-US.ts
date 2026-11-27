@@ -26,7 +26,6 @@ export const enUS: TranslationDictionary = {
     experience: 'Experience',
     skills: 'Skills',
     contact: 'Contact',
-    letsTalk: "Let's talk",
     resume: 'Resume',
   },
   hero: {
@@ -171,10 +170,10 @@ export const enUS: TranslationDictionary = {
     },
   },
   contact: {
-    eyebrow: "Let's connect",
-    title: 'Have a project in mind?',
+    eyebrow: 'Contact',
+    title: 'Open to new opportunities',
     description:
-      "I'm always open to new opportunities, technical collaborations, or just a good chat about tech and games.",
+      'Available for Senior Frontend Engineer roles, technical collaborations, or a good chat about tech and games.',
     cta: 'Get in touch',
     copyEmail: 'Copy email address',
     copied: 'Email address copied to clipboard.',
